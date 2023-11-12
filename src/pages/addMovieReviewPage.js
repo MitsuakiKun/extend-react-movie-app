@@ -1,18 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import PageTemplate from "../components/templateMoviePage";
 import ReviewForm from "../components/reviewForm";
 import { useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getMovie } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
+import { LanguageContext } from '../contexts/languageContext';
 
 const WriteReviewPage = (props) => {
   const location = useLocation();
   const movieId = location.state.movieId;
 
+  const { language } = useContext(LanguageContext);
+
   const { data: movie, error, isLoading, isError } = useQuery(
     ["movie", { id: movieId }],
-    getMovie
+    getMovie({ id: movieId, language })
   );
 
   if (isLoading) {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -11,23 +11,25 @@ import { useNavigate } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { LanguageContext } from "../../contexts/languageContext";
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader = ({ history }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+
   const open = Boolean(anchorEl);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   
   const navigate = useNavigate();
+  const { changeLanguage } = useContext(LanguageContext); 
 
   const menuOptions = [
     { label: "Home", path: "/" },
     { label: "Favorites", path: "/movies/favorites" },
-    { label: "upcoming", path: "/movies/upcoming" },
-    { label: "Option 4", path: "/" },
+    { label: "Upcoming", path: "/movies/upcoming" },
   ];
 
   const handleMenuSelect = (pageURL) => {
@@ -97,6 +99,12 @@ const SiteHeader = ({ history }) => {
                 ))}
               </>
             )}
+          <Button color="inherit" onClick={() => changeLanguage("en-US")}>
+            English
+          </Button>
+          <Button color="inherit" onClick={() => changeLanguage("ja-JA")}>
+            日本語
+          </Button>
         </Toolbar>
       </AppBar>
       <Offset />

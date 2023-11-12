@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useContext, useEffect } from 'react';
 import { getUpcomingMovies } from "../api/tmdb-api";
 import PageTemplate from "../components/templateMovieListPage";
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 import AddToMustWatchesIcon from '../components/cardIcons/addToMustWatches';
+import { LanguageContext } from '../contexts/languageContext';
 
-const UpcomingMoviesPage = () => {
-  const { data, error, isLoading, isError } = useQuery('upcoming', getUpcomingMovies);
+const UpcomingMoviesPage = (props) => {
+  const { language } = useContext(LanguageContext);
+ 
+  const { data, error, isLoading, isError, refetch } = useQuery('upcoming', () => getUpcomingMovies(language));
+
+  useEffect(() => {
+      refetch();
+  }, [language, refetch]);
 
   if (isLoading) {
     return <Spinner />

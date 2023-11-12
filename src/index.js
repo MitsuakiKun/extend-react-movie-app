@@ -11,6 +11,8 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools';
 import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage'
+import { LanguageProvider } from './contexts/languageContext';
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,6 +28,7 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+        <LanguageProvider>
         <SiteHeader />
         <MoviesContextProvider>
         <Routes>
@@ -38,6 +41,7 @@ const App = () => {
           <Route path="*" element={ <Navigate to="/" /> } />
         </Routes>
         </MoviesContextProvider>
+        </LanguageProvider>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
