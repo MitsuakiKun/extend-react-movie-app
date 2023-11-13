@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from 'react';
 import PageTemplate from "../components/templateMoviePage";
 import ReviewForm from "../components/reviewForm";
 import { useLocation } from "react-router-dom";
@@ -13,10 +13,15 @@ const WriteReviewPage = (props) => {
 
   const { language } = useContext(LanguageContext);
 
-  const { data: movie, error, isLoading, isError } = useQuery(
-    ["movie", { id: movieId }],
-    getMovie({ id: movieId, language })
+  const { data: movie, error, isLoading, isError, refetch } = useQuery(
+    ["movie", { id: movieId, language }],
+    getMovie,  
   );
+
+  useEffect(() => {
+    refetch();
+  }, [language, refetch]);
+
 
   if (isLoading) {
     return <Spinner />;

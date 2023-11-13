@@ -13,10 +13,11 @@
     });
   };
     
-  export const getMovie = (args, language) => {
-    // console.log(args)
-    const [, idPart] = args.queryKey;
-    const { id } = idPart;
+  export const getMovie = (args) => {
+    
+    const [, params] = args.queryKey;
+    const { id ,language} = params;
+    console.log(`MovieDetailPage:${language}`)
     return fetch(
       `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_TMDB_KEY}&language=${language}`
     ).then((response) => {
@@ -44,7 +45,7 @@
    });
   };
   
-  export const getMovieImages = ({ queryKey }, language) => {
+  export const getMovieImages = ({ queryKey }) => {
     const [, idPart] = queryKey;
     const { id } = idPart;
     return fetch(

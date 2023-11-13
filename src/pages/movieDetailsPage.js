@@ -12,13 +12,10 @@ import { LanguageContext } from '../contexts/languageContext';
 const MoviePage = (props) => {
   const { id } = useParams();
   const { language } = useContext(LanguageContext);
-  console.log(language)
   
   const { data: movie, error, isLoading, isError, refetch } = useQuery(
-    ["movie", { id, language }],
-    () => getMovie({ id }, language),  // Pass the language parameter here
-
-    //TODO: 詳細画面のlanguageの値がうまく渡せていない？
+    ["movie", { id: id, language }],
+    getMovie,  // Pass the language parameter here
   );
 
   useEffect(() => {
