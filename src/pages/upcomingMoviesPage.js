@@ -5,6 +5,8 @@ import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 import AddToMustWatchesIcon from '../components/cardIcons/addToMustWatches';
 import { LanguageContext } from '../contexts/languageContext';
+import { getString }  from '../strings.js';
+
 
 const UpcomingMoviesPage = (props) => {
   const { language } = useContext(LanguageContext);
@@ -14,6 +16,8 @@ const UpcomingMoviesPage = (props) => {
   useEffect(() => {
       refetch();
   }, [language, refetch]);
+
+
 
   if (isLoading) {
     return <Spinner />
@@ -31,7 +35,8 @@ const UpcomingMoviesPage = (props) => {
 
   return (
     <PageTemplate
-      title="Upcoming Movies"
+    title={getString(language, "upcomingMovies")}
+
       movies={movies}
       action={(movie) => {
         return <AddToMustWatchesIcon movie={movie} />

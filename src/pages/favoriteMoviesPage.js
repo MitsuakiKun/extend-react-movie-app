@@ -7,6 +7,7 @@ import Spinner from '../components/spinner'
 import RemoveFromFavorites from "../components/cardIcons/removeFromFavorites";
 import WriteReview from "../components/cardIcons/writeReview";
 import { LanguageContext } from '../contexts/languageContext';
+import { getString }  from '../strings.js';
 
 
 const FavoriteMoviesPage = () => {
@@ -47,7 +48,7 @@ const FavoriteMoviesPage = () => {
 
   return (
     <PageTemplate
-      title="Favorite Movies"
+    title={getString(language, "favoriteMovies")}
       movies={movies}
       action={(movie) => {
         return (

@@ -12,6 +12,7 @@ import { styled } from '@mui/material/styles';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { LanguageContext } from "../../contexts/languageContext";
+import { getString }  from '../../strings.js';
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
@@ -24,12 +25,12 @@ const SiteHeader = ({ history }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   
   const navigate = useNavigate();
-  const { changeLanguage } = useContext(LanguageContext); 
+  const { language, changeLanguage } = useContext(LanguageContext);
 
   const menuOptions = [
-    { label: "Home", path: "/" },
-    { label: "Favorites", path: "/movies/favorites" },
-    { label: "Upcoming", path: "/movies/upcoming" },
+    { label: getString(language, "home"), path: "/" },
+    { label: getString(language, "favorites"), path: "/movies/favorites" },
+    { label: getString(language, "upcoming"), path: "/movies/upcoming" },
   ];
 
   const handleMenuSelect = (pageURL) => {
@@ -45,10 +46,10 @@ const SiteHeader = ({ history }) => {
       <AppBar position="fixed" color="secondary">
         <Toolbar>
           <Typography variant="h4" sx={{ flexGrow: 1 }}>
-            TMDB Client
+            {getString(language, "tmdbClient")}
           </Typography>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            All you ever wanted to know about Movies!
+            {getString(language, "menubar")}
           </Typography>
             {isMobile ? (
               <>

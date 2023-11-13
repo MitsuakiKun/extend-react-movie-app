@@ -14,6 +14,7 @@ import { getGenres } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from '../spinner'
 import { LanguageContext } from '../../contexts/languageContext';
+import { getString }  from '../../strings.js';
 
 
 const formControl = 
@@ -26,7 +27,7 @@ const formControl =
 export default function FilterMoviesCard(props) {
 
   const { language } = useContext(LanguageContext);
-  const { data, error, isLoading, isError, refetch } = useQuery("genres", getGenres(language));
+  const { data, error, isLoading, isError, refetch } = useQuery("genres",()=> getGenres(language));
 
   useEffect(() => {
     refetch();
@@ -67,19 +68,19 @@ export default function FilterMoviesCard(props) {
       <CardContent>
         <Typography variant="h5" component="h1">
           <SearchIcon fontSize="large" />
-          Filter the movies.
+          {getString(language,"filterMovies")}
         </Typography>
         <TextField
          sx={{...formControl}}
           id="filled-search"
-          label="Search field"
+          label={getString(language,"search")}
           type="search"
           variant="filled"
           value={props.titleFilter}
           onChange={handleTextChange}
         />
         <FormControl sx={{...formControl}}>
-          <InputLabel id="genre-label">Genre</InputLabel>
+          <InputLabel id="genre-label">{getString(language,"genre")}</InputLabel>
           <Select
             labelId="genre-label"
             id="genre-select"
@@ -105,7 +106,7 @@ export default function FilterMoviesCard(props) {
       <CardContent>
         <Typography variant="h5" component="h1">
           <SearchIcon fontSize="large" />
-          Filter the movies.
+          {getString(language, "filterMovies")}
           <br />
         </Typography>
       </CardContent>

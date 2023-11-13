@@ -9,8 +9,10 @@ import Paper from "@mui/material/Paper";
 import { Link } from "react-router-dom";
 import { getMovieReviews } from "../../api/tmdb-api";
 import { excerpt } from "../../util";
+import { getString }  from '../../strings.js';
 
-export default function MovieReviews({ movie }) {
+
+export default function MovieReviews({ movie, language}) {
   const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
@@ -25,9 +27,9 @@ export default function MovieReviews({ movie }) {
       <Table sx={{minWidth: 550}} aria-label="reviews table">
         <TableHead>
           <TableRow>
-            <TableCell >Author</TableCell>
-            <TableCell align="center">Excerpt</TableCell>
-            <TableCell align="right">More</TableCell>
+            <TableCell >{getString(language, "author")}</TableCell>
+            <TableCell align="center">{getString(language, "excerpt")}</TableCell>
+            <TableCell align="right">{getString(language, "more")}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -45,7 +47,7 @@ export default function MovieReviews({ movie }) {
                       movie: movie,
                   }}
                 >
-                  Full Review
+                  {getString(language, "Review")}
                 </Link>
               </TableCell>
             </TableRow>

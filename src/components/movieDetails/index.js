@@ -9,7 +9,7 @@ import Fab from "@mui/material/Fab";
 import Typography from "@mui/material/Typography";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews"
-
+import { getString }  from '../../strings.js';
 
 const root = {
     display: "flex",
@@ -21,13 +21,13 @@ const root = {
 };
 const chip = { margin: 0.5 };
 
-const MovieDetails = ({ movie }) => {  // Don't miss this!
+const MovieDetails = ({ movie , language}) => {  // Don't miss this!
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
     <>
       <Typography variant="h5" component="h3">
-        Overview
+        {getString(language, "overview")}
       </Typography>
 
       <Typography variant="h6" component="p">
@@ -39,7 +39,7 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         sx={{...root}}
       >
         <li>
-          <Chip label="Genres" sx={{...chip}} color="primary" />
+          <Chip label={getString(language, "genre")} sx={{...chip}} color="primary" />
         </li>
         {movie.genres.map((g) => (
           <li key={g.name}>
@@ -48,7 +48,7 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         ))}
       </Paper>
       <Paper component="ul" sx={{...root}}>
-        <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
+        <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} ${getString(language, "min")}`} />
         <Chip
           icon={<MonetizationIcon />}
           label={`${movie.revenue.toLocaleString()}`}
@@ -57,14 +57,14 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
           icon={<StarRate />}
           label={`${movie.vote_average} (${movie.vote_count}`}
         />
-        <Chip label={`Released: ${movie.release_date}`} />
+        <Chip label={`${getString(language, "released")}: ${movie.release_date}`} />
       </Paper>
       <Paper 
         component="ul" 
         sx={{...root}}
       >
         <li>
-          <Chip label="Production Countries" sx={{...chip}} color="primary" />
+          <Chip label={getString(language, "productionCountries")} sx={{...chip}} color="primary" />
         </li>
         {movie.production_countries.map((g) => (
           <li key={g.name}>
@@ -83,10 +83,10 @@ const MovieDetails = ({ movie }) => {  // Don't miss this!
         }}
       >
         <NavigationIcon />
-        Reviews
+        {getString(language, "Reviews")}
       </Fab>
       <Drawer anchor="top" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
-        <MovieReviews movie={movie} />
+        <MovieReviews movie={movie} language={language}/>
       </Drawer>
       </>
   );
