@@ -9,6 +9,14 @@ function MovieListPageTemplate({ movies, title, action }) {
   const [genreFilter, setGenreFilter] = useState("0");
   const genreId = Number(genreFilter);
 
+  const [sortFilter, setSortFilter] = useState(""); 
+
+  const handleChange = (type, value) => {
+    if (type === "name") setNameFilter(value);
+    else if (type === "genre") setGenreFilter(value);
+    else if (type === "sort") setSortFilter(value);
+  };
+
   let displayedMovies = movies
     .filter((m) => {
       return m.title.toLowerCase().search(nameFilter.toLowerCase()) !== -1;
@@ -17,10 +25,11 @@ function MovieListPageTemplate({ movies, title, action }) {
       return genreId > 0 ? m.genre_ids.includes(genreId) : true;
     });
 
-  const handleChange = (type, value) => {
-    if (type === "name") setNameFilter(value);
-    else setGenreFilter(value);
-  };
+  if (sortFilter === "vote_average.desc") {
+    displayedMovies.sort((a, b) => b.vote_average - a.vote_average);
+  } else if (sortFilter === "vote_average.asc") {
+    displayedMovies.sort((a, b) => a.vote_average - b.vote_average);
+  }  
 
   return (
     <Grid container sx={{ padding: '20px' }}>

@@ -7,6 +7,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
+import SortIcon from "@mui/icons-material/Sort";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import img from '../../images/pexels-dziana-hasanbekava-5480827.jpg'
@@ -58,6 +59,10 @@ export default function FilterMoviesCard(props) {
     handleChange(e, "genre", e.target.value);
   };
 
+  const handleSortChange = (e) => {
+    handleChange(e, "sort", e.target.value);
+  };
+
   return (
     <Card 
       sx={{
@@ -97,19 +102,37 @@ export default function FilterMoviesCard(props) {
             })}
           </Select>
         </FormControl>
+
+
       </CardContent>
+
+      <CardContent>
+        <Typography variant="h5" component="h1">
+          <SortIcon fontSize="large" />
+          {getString(language, "sortBy")}
+          <br />
+        </Typography>
+
+        <FormControl sx={{ ...formControl }}>
+          <InputLabel id="sort-label">{getString(language, "sortBy")}</InputLabel>
+          <Select
+            labelId="sort-label"
+            id="sort-select"
+            defaultValue=""
+            value={props.sortFilter}
+            onChange={handleSortChange}
+          >
+            <MenuItem value="vote_average.desc">{getString(language, "ratingDesc")}</MenuItem>
+            <MenuItem value="vote_average.asc">{getString(language, "ratingAsc")}</MenuItem>
+          </Select>
+        </FormControl>
+      </CardContent>
+      
       <CardMedia
         sx={{ height: 300 }}
         image={img}
         title="Filter"
       />
-      <CardContent>
-        <Typography variant="h5" component="h1">
-          <SearchIcon fontSize="large" />
-          {getString(language, "filterMovies")}
-          <br />
-        </Typography>
-      </CardContent>
     </Card>
   );
 }
