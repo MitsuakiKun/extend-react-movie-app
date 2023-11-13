@@ -25,6 +25,8 @@ const titles = {
     sortBy: "Sort By",
     ratingDesc: "Descending rating",
     ratingAsc: "Ascending Rating",
+    dateDesc:"Descending Publication Date",
+    dateAsc:"Ascending Publication Date",
   },
   "ja-JA": {
     discoverMovies: "映画を探索",
@@ -52,6 +54,8 @@ const titles = {
     sortBy:"並び替え",
     ratingDesc: "評価降順",
     ratingAsc: "評価昇順",
+    dateDesc:"公開日降順",
+    dateAsc:"公開日降順",
   },
 };
 

@@ -29,7 +29,11 @@ function MovieListPageTemplate({ movies, title, action }) {
     displayedMovies.sort((a, b) => b.vote_average - a.vote_average);
   } else if (sortFilter === "vote_average.asc") {
     displayedMovies.sort((a, b) => a.vote_average - b.vote_average);
-  }  
+  } else if (sortFilter === "pub_date.desc") {
+    displayedMovies.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+  } else if (sortFilter === "pub_date.asc") {
+    displayedMovies.sort((a, b) => new Date(a.release_date) - new Date(b.release_date));
+  }
 
   return (
     <Grid container sx={{ padding: '20px' }}>

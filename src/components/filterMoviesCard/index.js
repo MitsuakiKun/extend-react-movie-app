@@ -124,10 +124,12 @@ export default function FilterMoviesCard(props) {
           >
             <MenuItem value="vote_average.desc">{getString(language, "ratingDesc")}</MenuItem>
             <MenuItem value="vote_average.asc">{getString(language, "ratingAsc")}</MenuItem>
+            <MenuItem value="pub_date.desc">{getString(language, "dateDesc")}</MenuItem>
+            <MenuItem value="pub_date.asc">{getString(language, "dateAsc")}</MenuItem>
           </Select>
         </FormControl>
       </CardContent>
-      
+
       <CardMedia
         sx={{ height: 300 }}
         image={img}
