@@ -5,6 +5,7 @@ import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
 import { LanguageContext } from '../contexts/languageContext';
+import { getString }  from '../strings.js';
 
 const HomePage = (props) => {
 
@@ -14,6 +15,7 @@ const HomePage = (props) => {
   useEffect(() => {
     refetch();
   }, [language, refetch]);
+
 
   if (isLoading) {
     return <Spinner />
@@ -31,7 +33,7 @@ const HomePage = (props) => {
 
   return (
     <PageTemplate
-      title="Discover Movies"
+      title={getString(language, "discoverMovies")}
       movies={movies}
       action={(movie) => {
         return <AddToFavoritesIcon movie={movie} />

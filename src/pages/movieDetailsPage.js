@@ -6,6 +6,7 @@ import { getMovie } from '../api/tmdb-api'
 import { useQuery } from "react-query";
 import Spinner from '../components/spinner'
 import { LanguageContext } from '../contexts/languageContext';
+import { getString }  from '../strings.js';
 
 // import useMovie from "../hooks/useMovie"; 
 
@@ -15,7 +16,7 @@ const MoviePage = (props) => {
   
   const { data: movie, error, isLoading, isError, refetch } = useQuery(
     ["movie", { id: id, language }],
-    getMovie,  // Pass the language parameter here
+    getMovie,  
   );
 
   useEffect(() => {
@@ -35,11 +36,11 @@ const MoviePage = (props) => {
       {movie ? (
         <>
           <PageTemplate movie={movie}>
-            <MovieDetails movie={movie} />
+            <MovieDetails movie={movie} language={language} />
           </PageTemplate>
         </>
       ) : (
-        <p>Waiting for movie details</p>
+        <p>{getString(language, "waitingMovieDetails")}</p>
       )}
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useContext  } from "react";
+import React, {useContext}  from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -16,10 +16,13 @@ import img from '../../images/film-poster-placeholder.png'
 import { Link } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
 import { MoviesContext } from "../../contexts/moviesContext";
+import { LanguageContext } from '../../contexts/languageContext';
+import { getString }  from '../../strings.js';
 
 
 export default function MovieCard({ movie, action }) {
-  const { favorites, addToFavorites, mustWatches, addToMustWatches } = useContext(MoviesContext);
+  const { favorites, addToFavorites, mustWatches, addToMustWatches} = useContext(MoviesContext);
+  const { language } = useContext(LanguageContext);
 
 
   if (favorites.find((id) => id === movie.id)) {
@@ -43,6 +46,8 @@ export default function MovieCard({ movie, action }) {
     e.preventDefault();
     addToMustWatches(movie);
   };
+
+ 
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -93,7 +98,8 @@ export default function MovieCard({ movie, action }) {
         {action(movie)}
         <Link to={`/movies/${movie.id}`}>
           <Button variant="outlined" size="medium" color="primary">
-            More Info ...
+            {getString(language,"moreInfo")}
+            
           </Button>
         </Link>
       </CardActions>
