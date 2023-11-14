@@ -22,6 +22,11 @@ const titles = {
     author: "Author",
     excerpt: "Excerpt",
     more: "More",
+    sortBy: "Sort By",
+    ratingDesc: "Descending Rating",
+    ratingAsc: "Ascending Rating",
+    dateDesc:"Descending Publication Date",
+    dateAsc:"Ascending Publication Date",
   },
   "ja-JA": {
     discoverMovies: "映画を探索",
@@ -46,6 +51,11 @@ const titles = {
     author: "著者",
     excerpt: "抜粋",
     more: "詳細",
+    sortBy:"並び替え",
+    ratingDesc: "評価降順",
+    ratingAsc: "評価昇順",
+    dateDesc:"公開日降順",
+    dateAsc:"公開日降順",
   },
 };
 
