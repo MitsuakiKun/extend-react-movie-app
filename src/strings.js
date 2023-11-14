@@ -23,7 +23,7 @@ const titles = {
     excerpt: "Excerpt",
     more: "More",
     sortBy: "Sort By",
-    ratingDesc: "Descending rating",
+    ratingDesc: "Descending Rating",
     ratingAsc: "Ascending Rating",
     dateDesc:"Descending Publication Date",
     dateAsc:"Ascending Publication Date",
