@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { getMovies } from "../api/tmdb-api";
 import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from 'react-query';
@@ -6,8 +6,29 @@ import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
 import { LanguageContext } from '../contexts/languageContext';
 import { getString }  from '../strings.js';
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../firebaseConfig.js";
+import { useNavigate, Navigate} from "react-router-dom";
 
 const HomePage = (props) => {
+
+  const [user, setUser] = useState("");
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+  }, []);
+
+  const navigate = useNavigate();
+
+  const logout = async () => {
+    await signOut(auth);
+    navigate("/login/");
+  }
 
   const { language } = useContext(LanguageContext);
   const { data, error, isLoading, isError, refetch }  = useQuery('discover', () => getMovies(language));
@@ -32,13 +53,26 @@ const HomePage = (props) => {
   const addToFavorites = (movieId) => true ;
 
   return (
-    <PageTemplate
-      title={getString(language, "discoverMovies")}
-      movies={movies}
-      action={(movie) => {
-        return <AddToFavoritesIcon movie={movie} />
-      }}
-    />
+
+    <>
+    {!loading && (
+      <>
+        {!user ? (
+          <Navigate to={`/login/`} />
+        ) : (
+          <>
+            <PageTemplate
+              title={getString(language, "discoverMovies")}
+              movies={movies}
+              action={(movie) => {
+                return <AddToFavoritesIcon movie={movie} />
+              }}
+            />
+          </>
+          )}
+        </>
+      )}
+    </>
   );
 };
 export default HomePage;

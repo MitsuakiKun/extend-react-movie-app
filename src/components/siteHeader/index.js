@@ -28,7 +28,7 @@ const SiteHeader = ({ history }) => {
   const { language, changeLanguage } = useContext(LanguageContext);
 
   const menuOptions = [
-    { label: getString(language, "home"), path: "/" },
+    { label: getString(language, "home"), path: "/home" },
     { label: getString(language, "favorites"), path: "/movies/favorites" },
     { label: getString(language, "upcoming"), path: "/movies/upcoming" },
   ];
