@@ -6,9 +6,9 @@ import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
 import { LanguageContext } from '../contexts/languageContext';
 import { getString }  from '../strings.js';
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebaseConfig.js";
-import { useNavigate, Navigate} from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const HomePage = (props) => {
 
@@ -23,12 +23,6 @@ const HomePage = (props) => {
     });
   }, []);
 
-  const navigate = useNavigate();
-
-  const logout = async () => {
-    await signOut(auth);
-    navigate("/login/");
-  }
 
   const { language } = useContext(LanguageContext);
   const { data, error, isLoading, isError, refetch }  = useQuery('discover', () => getMovies(language));
