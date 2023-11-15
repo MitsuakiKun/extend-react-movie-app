@@ -47,26 +47,27 @@ const HomePage = (props) => {
   const addToFavorites = (movieId) => true ;
 
   return (
-
     <>
-    {!loading && (
-      <>
-        {!user ? (
-          <Navigate to={`/login/`} />
-        ) : (
-          <>
-            <PageTemplate
-              title={getString(language, "discoverMovies")}
-              movies={movies}
-              action={(movie) => {
-                return <AddToFavoritesIcon movie={movie} />
-              }}
-            />
+      {!loading && (
+        <>
+          {!user ? (
+            <Navigate to={`/login/`} />
+          ) : (
+            <>
+              <PageTemplate
+                title={getString(language, "discoverMovies")}
+                movies={movies}
+                action={(movie) => {
+                  return <AddToFavoritesIcon movie={movie} />
+                }}
+              />
+            </>
+            )}
           </>
-          )}
-        </>
-      )}
+        )}
     </>
   );
 };
+
+
 export default HomePage;

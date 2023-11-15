@@ -14,7 +14,10 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { LanguageContext } from "../../contexts/languageContext";
 import { getString }  from '../../strings.js';
 
-const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
+const Offset = styled('div')(({ theme }) => ({
+  ...theme.mixins.toolbar,
+  marginBottom: '0px',
+}));
 
 const SiteHeader = ({ history }) => {
   const [anchorEl, setAnchorEl] = useState(null);

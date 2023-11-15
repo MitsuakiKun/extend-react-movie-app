@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, {  useState, useContext, useEffect } from "react";
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth, signInWithPopup, onAuthStateChanged } from "firebase/auth";
 import  firebaseConfig, { auth } from "../firebaseConfig";
 import { Navigate } from "react-router-dom";
+import { LanguageContext } from '../contexts/languageContext';
+import { getString }  from '../strings.js';
 
 initializeApp(firebaseConfig);
 
 const LoginPage = () => {
+  const [user, setUser] = useState();
+
     const handleLogin = async () => {
       const auth = getAuth();
       const provider = new GoogleAuthProvider();
@@ -21,7 +25,6 @@ const LoginPage = () => {
       }
     };
 
-    const [user, setUser] = useState();
 
     useEffect(() => {
       onAuthStateChanged(auth, (currentUser) => {
@@ -29,21 +32,27 @@ const LoginPage = () => {
       });
     });
   
+    const { language } = useContext(LanguageContext);
   
     return (
       <>
-        <div style={styles.container}>
-          <img
-              src="http://devops.witdemo.net/logo.jpg"
-              alt="Logo"
-              style={styles.logo}
-          />
-          <h1 style={styles.heading}>Login Page</h1>
-          <button style={styles.button} onClick={handleLogin}>
-            Login with @mail.wit.ie Google Account
-          </button>
-
-        </div>
+        {user ? (
+          <Navigate to={`/`} />
+        ) : (
+          <>
+            <div style={styles.container}>
+              <img
+                  src="http://devops.witdemo.net/logo.jpg"
+                  alt="Logo"
+                  style={styles.logo}
+              />
+              <h1 style={styles.heading}>{getString(language, "loginPage")}</h1>
+              <button style={styles.button} onClick={handleLogin}>
+                Login with @mail.wit.ie Google Account
+              </button>
+            </div>
+          </>
+        )}
       </>
     );
   };
@@ -78,4 +87,4 @@ const LoginPage = () => {
     },
   };
   
-  export default LoginPage;
+export default LoginPage;

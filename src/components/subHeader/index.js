@@ -15,8 +15,10 @@ import { getString }  from '../../strings.js';
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../firebaseConfig.js";
 
-
-const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
+const Offset = styled('div')(({ theme }) => ({
+  ...theme.mixins.toolbar,
+  marginBottom: '0px',
+}));
 
 const SubHeader = ({ history }) => {
   const [,setUser] = useState("");
@@ -56,7 +58,7 @@ const SubHeader = ({ history }) => {
 
   return (
     <>
-      <AppBar position="static" style={{ backgroundColor: '#af52bf' }}>
+    <AppBar position="fixed" style={{ backgroundColor: '#af52bf', marginTop: '64px' }}>
         <Toolbar style={{ justifyContent: 'flex-end', flexGrow: 1 }}>
             {isMobile ? (
               <>
@@ -101,6 +103,7 @@ const SubHeader = ({ history }) => {
             )}
         </Toolbar>
       </AppBar>
+      <Offset />
     </>
   );
 };
