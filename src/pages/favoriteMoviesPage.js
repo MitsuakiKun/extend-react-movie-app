@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import PageTemplate from "../components/templateMovieListPage";
 import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "react-query";
@@ -8,12 +8,24 @@ import RemoveFromFavorites from "../components/cardIcons/removeFromFavorites";
 import WriteReview from "../components/cardIcons/writeReview";
 import { LanguageContext } from '../contexts/languageContext';
 import { getString }  from '../strings.js';
-
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../firebaseConfig.js";
+import { Navigate } from "react-router-dom";
 
 const FavoriteMoviesPage = () => {
+  const [user, setUser] = useState("");
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+  }, []);
+
   const {favorites: movieIds } = useContext(MoviesContext);
   const { language } = useContext(LanguageContext);
-  
   
   // Create an array of queries and run in parallel.
   const favoriteMovieQueries = useQueries(
@@ -47,18 +59,30 @@ const FavoriteMoviesPage = () => {
   const toDo = () => true;
 
   return (
-    <PageTemplate
-    title={getString(language, "favoriteMovies")}
-      movies={movies}
-      action={(movie) => {
-        return (
+    <>
+    {!loading && (
+      <>
+        {!user ? (
+          <Navigate to={`/login/`} />
+        ) : (
           <>
-            <RemoveFromFavorites movie={movie} />
-            <WriteReview movie={movie} />
+            <PageTemplate
+            title={getString(language, "favoriteMovies")}
+              movies={movies}
+              action={(movie) => {
+                return (
+                  <>
+                    <RemoveFromFavorites movie={movie} />
+                    <WriteReview movie={movie} />
+                  </>
+                );
+              }}
+            />
           </>
-        );
-      }}
-    />
+        )}
+          </>
+        )}
+    </>
   );
 };
 

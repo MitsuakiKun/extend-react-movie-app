@@ -27,9 +27,11 @@ const titles = {
     ratingAsc: "Ascending Rating",
     dateDesc:"Descending Publication Date",
     dateAsc:"Ascending Publication Date",
+    logout: "Logout",
+    loginPage: "Login Page",
   },
   "ja-JA": {
-    discoverMovies: "映画を探索",
+    discoverMovies: "映画を探す",
     upcomingMovies: "公開予定の映画",
     favoriteMovies: "お気に入りの映画",
     filterMovies: "映画を絞り込む",
@@ -56,6 +58,8 @@ const titles = {
     ratingAsc: "評価昇順",
     dateDesc:"公開日降順",
     dateAsc:"公開日降順",
+    logout: "ログアウト",
+    loginPage: "ログインページ",
   },
 };
 

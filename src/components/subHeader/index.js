@@ -1,7 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -13,28 +12,35 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { LanguageContext } from "../../contexts/languageContext";
 import { getString }  from '../../strings.js';
+import { onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../../firebaseConfig.js";
 
 const Offset = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
   marginBottom: '0px',
 }));
 
-const SiteHeader = ({ history }) => {
+const SubHeader = ({ history }) => {
+  const [,setUser] = useState("");
+  const [,setLoading] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+  }, []);
+
+  const navigate = useNavigate();
 
   const open = Boolean(anchorEl);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   
-  const navigate = useNavigate();
-  const { language } = useContext(LanguageContext);
+  const { language, changeLanguage } = useContext(LanguageContext);
 
-  const menuOptions = [
-    { label: getString(language, "home"), path: "/home" },
-    { label: getString(language, "favorites"), path: "/movies/favorites" },
-    { label: getString(language, "upcoming"), path: "/movies/upcoming" },
-  ];
 
   const handleMenuSelect = (pageURL) => {
     navigate(pageURL, { replace: true });
@@ -44,16 +50,16 @@ const SiteHeader = ({ history }) => {
     setAnchorEl(event.currentTarget);
   };
 
+  const logout = async () => {
+    await signOut(auth);
+    navigate("/login/");
+  }
+
+
   return (
     <>
-      <AppBar position="fixed" color="secondary">
-        <Toolbar>
-          <Typography variant="h4" sx={{ flexGrow: 1 }}>
-            {getString(language, "tmdbClient")}
-          </Typography>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            {getString(language, "menubar")}
-          </Typography>
+    <AppBar position="fixed" style={{ backgroundColor: '#af52bf', marginTop: '64px' }}>
+        <Toolbar style={{ justifyContent: 'flex-end', flexGrow: 1 }}>
             {isMobile ? (
               <>
                 <IconButton
@@ -80,27 +86,19 @@ const SiteHeader = ({ history }) => {
                   open={open}
                   onClose={() => setAnchorEl(null)}
                 >
-                  {menuOptions.map((opt) => (
-                    <MenuItem
-                      key={opt.label}
-                      onClick={() => handleMenuSelect(opt.path)}
-                    >
-                      {opt.label}
-                    </MenuItem>
-                  ))}
                 </Menu>
               </>
             ) : (
               <>
-                {menuOptions.map((opt) => (
-                  <Button
-                    key={opt.label}
-                    color="inherit"
-                    onClick={() => handleMenuSelect(opt.path)}
-                  >
-                    {opt.label}
-                  </Button>
-                ))}
+                <Button color="inherit" onClick={() => changeLanguage("en-US")}>
+                  English
+                </Button>
+                <Button color="inherit" onClick={() => changeLanguage("ja-JA")}>
+                  日本語
+                </Button>
+                <Button color="inherit" onClick={() => logout()}>
+                  {getString(language, "logout")}
+                </Button>
               </>
             )}
         </Toolbar>
@@ -110,4 +108,4 @@ const SiteHeader = ({ history }) => {
   );
 };
 
-export default SiteHeader;
+export default SubHeader;

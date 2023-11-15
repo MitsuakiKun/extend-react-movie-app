@@ -7,12 +7,13 @@ import FavoriteMoviesPage from "./pages/favoriteMoviesPage";
 import UpcomingMoviesPage from "./pages/upcomingMoviesPage";
 import MovieReviewPage from "./pages/movieReviewPage";
 import SiteHeader from './components/siteHeader'
+import SubHeader from './components/subHeader'
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools';
 import MoviesContextProvider from "./contexts/moviesContext";
 import AddMovieReviewPage from './pages/addMovieReviewPage'
 import { LanguageProvider } from './contexts/languageContext';
-
+import LoginPage from "./pages/LoginPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,23 +28,25 @@ const queryClient = new QueryClient({
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <LanguageProvider>
-        <SiteHeader />
-        <MoviesContextProvider>
-        <Routes>
-          <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
-          <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
-          <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} /> 
-          <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
-          <Route path="/movies/:id" element={<MoviePage />} />
-          <Route path="/" element={<HomePage />} />
-          <Route path="*" element={ <Navigate to="/" /> } />
-        </Routes>
-        </MoviesContextProvider>
-        </LanguageProvider>
-      </BrowserRouter>
-      <ReactQueryDevtools initialIsOpen={false} />
+        <BrowserRouter>
+          <LanguageProvider>
+            <SiteHeader />
+            <SubHeader />
+            <MoviesContextProvider>
+              <Routes>
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
+                <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
+                <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} /> 
+                <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
+                <Route path="/movies/:id" element={<MoviePage />} />
+                <Route path="/" element={<HomePage />} />
+                <Route path="*" element={<Navigate to="/" />} />
+              </Routes>
+            </MoviesContextProvider>
+          </LanguageProvider>
+        </BrowserRouter>
+        <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };
