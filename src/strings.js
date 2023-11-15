@@ -31,7 +31,7 @@ const titles = {
     loginPage: "Login Page",
   },
   "ja-JA": {
-    discoverMovies: "映画を探索",
+    discoverMovies: "映画を探す",
     upcomingMovies: "公開予定の映画",
     favoriteMovies: "お気に入りの映画",
     filterMovies: "映画を絞り込む",
