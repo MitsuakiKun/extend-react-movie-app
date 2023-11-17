@@ -29,6 +29,8 @@ const titles = {
     dateAsc:"Ascending Publication Date",
     logout: "Logout",
     loginPage: "Login Page",
+    productionCompanies: "Production Companies",
+    similarMovies: "Similar Movies",
   },
   "ja-JA": {
     discoverMovies: "映画を探す",
@@ -60,6 +62,8 @@ const titles = {
     dateAsc:"公開日降順",
     logout: "ログアウト",
     loginPage: "ログインページ",
+    productionCompanies: "製作会社",
+    similarMovies: "似ている映画",
   },
 };
 

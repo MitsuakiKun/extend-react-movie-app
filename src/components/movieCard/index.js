@@ -20,7 +20,7 @@ import { LanguageContext } from '../../contexts/languageContext';
 import { getString }  from '../../strings.js';
 
 
-export default function MovieCard({ movie, action }) {
+export default function MovieCard({ movie, action = () => null }) {
   const { favorites, addToFavorites, mustWatches, addToMustWatches} = useContext(MoviesContext);
   const { language } = useContext(LanguageContext);
 

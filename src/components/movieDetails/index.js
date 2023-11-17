@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
@@ -10,6 +10,9 @@ import Typography from "@mui/material/Typography";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews"
 import { getString }  from '../../strings.js';
+import MovieCard from "../movieCard";
+import Grid from "@mui/material/Grid";
+import { getSimilarMovies } from "../../api/tmdb-api.js";
 
 const root = {
     display: "flex",
@@ -23,6 +26,18 @@ const chip = { margin: 0.5 };
 
 const MovieDetails = ({ movie , language}) => {  // Don't miss this!
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [similarMovies, setSimilarMovies] = useState([]);
+
+  const getGoogleSearchUrl = (query) => {
+    const encodedQuery = encodeURIComponent(query);
+    return `https://www.google.com/search?q=${encodedQuery}`;
+  };
+
+  useEffect(() => {
+    getSimilarMovies(movie.id, language).then((movies) => {
+      setSimilarMovies(movies);
+    });
+  }, [movie.id, language]);
 
   return (
     <>
@@ -72,6 +87,34 @@ const MovieDetails = ({ movie , language}) => {  // Don't miss this!
           </li>
         ))}
       </Paper>
+      <Paper component="ul" sx={{ ...root }}>
+        <li>
+          <Chip label={getString(language, "productionCompanies")} sx={{ ...chip }} color="primary" />
+        </li>
+        {movie.production_companies.map((company) => (
+          <li key={company.id}>
+           <a href={getGoogleSearchUrl(company.name)} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+              <Chip label={company.name} sx={{ ...chip, cursor: 'pointer' }} />
+            </a>
+          </li>
+        ))}
+      </Paper>
+      {similarMovies.length > 0 && (
+        <>
+          <Typography variant="h5" component="h3" style={{ marginTop: '16px' }}>
+            {getString(language, "similarMovies")}
+          </Typography>
+          <Grid container spacing={2}>
+            {similarMovies.map((m) => (
+              <Grid key={m.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
+                {}
+                <MovieCard key={m.id} movie={m} />
+              </Grid>
+            ))}
+          </Grid>
+        </>
+        
+      )}
       <Fab
         color="secondary"
         variant="extended"
