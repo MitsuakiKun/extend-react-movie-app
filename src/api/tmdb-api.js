@@ -89,7 +89,7 @@
     
   export const getSimilarMovies = (id, language) => {
     return fetch(
-      `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${process.env.REACT_APP_TMDB_KEY}&language=${language}`
+      `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${process.env.REACT_APP_TMDB_KEY}&language=${language}&include_adult=false&include_video=false&page=1`
     )
       .then((res) => res.json())
        .then((json) => {
