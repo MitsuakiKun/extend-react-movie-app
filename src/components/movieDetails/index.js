@@ -89,12 +89,12 @@ const MovieDetails = ({ movie , language}) => {  // Don't miss this!
       </Paper>
       <Paper component="ul" sx={{ ...root }}>
         <li>
-          <Chip label={getString(language, "productionCompanies")} sx={{ ...chip }} color="primary" />
+          <Chip label={getString(language, "productionCompanies")} sx={{ ...chip }}  color="primary" />
         </li>
         {movie.production_companies.map((company) => (
           <li key={company.id}>
-           <a href={getGoogleSearchUrl(company.name)} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
-              <Chip label={company.name} sx={{ ...chip, cursor: 'pointer' }} />
+           <a href={getGoogleSearchUrl(company.name)} style={{ textDecoration: 'none' }}>
+              <Chip label={company.name} className="production-company-chip" sx={{ ...chip, cursor: 'pointer' }} />
             </a>
           </li>
         ))}
