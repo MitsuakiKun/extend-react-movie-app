@@ -1,70 +1,50 @@
-# Getting Started with Create React App
+# Assignment 1 - ReactJS app.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Name: Mitsuaki Okabe
 
-## Available Scripts
 
-In the project directory, you can run:
+## Overview.
 
-### `npm start`
+I have created a multilingual site to make it easier for many people to use the site. Since I am Japanese, I have made the site Japanese compatible first, but since the [string.js](./src/strings.js) database, so you can easily change to more languages by registering language information.
+I also created a login function using Firebase Authentication so that only google accounts with @mail.wit.ie can login to the site.
+Furthermore, I have created a more user-friendly site with more information on the detail pages.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Features.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
++ Language support for Japanese
++ Authentication with WIT Google Account (Using by Firebase Authentication)
++ Sort Movie list on homepage
+    - Rating sort (Asc and Desc)
+    - Publication Date Sort (Asc and Desc)
++ Adding information on the Movie detail page 
+    - Production Company
+        - Migrate to company Google search when you click the chip.
+    - Similar Movie List
 
-### `npm test`
+---
+## Setup requirements.
++ You need to login with WIT Google Account when you access all pages.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
+## API endpoints.
++ Language set - &language=ja-JA or &languages=en-US
++ Similar movies - movie/:id/similar
 
-### `npm run build`
+---
+## Routing.
++ /login - access login page.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
+## Independent learning (If relevant).
+### Sources
++ [Firebase Authentication with Google Account](https://firebase.google.com/docs/auth/web/google-signin)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
++ [Access Control with Firebase Auth](https://ralacode.com/blog/post/react-firebase-authentication/) ←It is written in Japanese...
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Using Files
++ Login function
+    - [LoginPage.js](./src/pages/LoginPage.js)
++ Access Control
+    - [HomePage.js](./src/pages/HomePage.js)
+    - [favoriteMovies.js](./src/pages/favoriteMoviesPage.js)
+    - [upcomingMovies.js](./src/pages/upcomingMoviesPage.js)
