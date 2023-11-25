@@ -12,7 +12,8 @@ import MovieReviews from "../movieReviews"
 import { getString }  from '../../strings.js';
 import MovieCard from "../movieCard";
 import Grid from "@mui/material/Grid";
-import { getSimilarMovies } from "../../api/tmdb-api.js";
+import { getSimilarMovies, getCredits } from "../../api/tmdb-api.js";
+import { useNavigate } from 'react-router-dom';
 
 const root = {
     display: "flex",
@@ -27,6 +28,7 @@ const chip = { margin: 0.5 };
 const MovieDetails = ({ movie , language}) => {  // Don't miss this!
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [similarMovies, setSimilarMovies] = useState([]);
+  const navigate = useNavigate();
 
   const getGoogleSearchUrl = (query) => {
     const encodedQuery = encodeURIComponent(query);
@@ -99,6 +101,20 @@ const MovieDetails = ({ movie , language}) => {  // Don't miss this!
           </li>
         ))}
       </Paper>
+      <Paper component="ul" sx={{ ...root, marginTop: '16px' }}>
+        <li>
+          <Chip
+            label={getString(language, "credits")}
+            sx={{ ...chip }}
+            color="primary"
+            onClick={() => {
+              navigate(`/movies/${movie.id}/credits`);
+              console.log("Navigate to Credits Page");
+            }}
+          />
+        </li>
+      </Paper>
+
       {similarMovies.length > 0 && (
         <>
           <Typography variant="h5" component="h3" style={{ marginTop: '16px' }}>

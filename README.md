@@ -20,6 +20,8 @@ Furthermore, I have created a more user-friendly site with more information on t
     - Production Company
         - Migrate to company Google search when you click the chip.
     - Similar Movie List
+    - Navigate to Credits Page
+        - It can view the details of the performers as a list in card format.
 
 ---
 ## Setup requirements.
@@ -27,12 +29,15 @@ Furthermore, I have created a more user-friendly site with more information on t
 
 ---
 ## API endpoints.
-+ Language set - &language=ja-JA or &languages=en-US
++ Language set - &language=ja-JA or &languages=en-US etc...
 + Similar movies - movie/:id/similar
++ Credits - movie/:id/credits
++ Credits images - https://image.tmdb.org/t/p/w200${credit.profile_path}
 
 ---
 ## Routing.
 + /login - access login page.
++ /movie/:id/credits - access Credits List page.
 
 ---
 ## Independent learning (If relevant).

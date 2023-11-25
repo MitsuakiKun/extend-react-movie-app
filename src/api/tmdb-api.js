@@ -98,4 +98,15 @@
       });
   };
 
+  export const getCredits =(id, language) =>{
+    return fetch(
+      `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.REACT_APP_TMDB_KEY}&language=${language}`
+    )
+      .then((res) => res.json())
+       .then((json) => {
+        console.log(json.results);
+        return json.cast; 
+      });
+  };
+
   

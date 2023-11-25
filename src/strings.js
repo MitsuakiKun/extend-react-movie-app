@@ -13,7 +13,7 @@ const titles = {
     tmdbClient: "TMDB Client",
     menubar: "All you ever wanted to know about Movies!",
     genre: "Genre",
-    search: "Search field",
+    search: "Search",
     moreInfo: "More info...",
     min: "min.",
     released: "Released",
@@ -31,6 +31,8 @@ const titles = {
     loginPage: "Login Page",
     productionCompanies: "Production Companies",
     similarMovies: "Similar Movies",
+    credits: "Credits",
+    character: "Character",
   },
   "ja-JA": {
     discoverMovies: "映画を探す",
@@ -64,6 +66,8 @@ const titles = {
     loginPage: "ログインページ",
     productionCompanies: "製作会社",
     similarMovies: "似ている映画",
+    credits: "出演者",
+    character: "キャラクター",
   },
 };
 
